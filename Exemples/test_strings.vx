@@ -1,0 +1,10 @@
+let text = "Bonjour Virex";
+print(startsWith(text, "Bonjour"));
+print(endsWith(text, "Virex"));
+print(indexOf(text, "Virex"));
+print(replace(text, "Virex", "monde"));
+print(repeat("ha", 3));
+print(reverse("Virex"));
+print(charAt(text, 1));
+print(isNumber("123.45"));
+print(isNumber("hello"));

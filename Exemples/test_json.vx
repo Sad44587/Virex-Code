@@ -1,0 +1,7 @@
+let data = jsonParse("{\"name\":\"Virex\",\"version\":1,\"enabled\":true,\"items\":[1,2,3]}");
+print(objectGet(data, "name"));
+print(objectGet(data, "version"));
+print(objectGet(data, "items"));
+print(objectKeys(data));
+let changed = objectSet(data, "ready", true);
+print(jsonStringify(changed));

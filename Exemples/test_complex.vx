@@ -1,0 +1,9 @@
+let a = complex(2, 3);
+let b = complex(1, -1);
+print(a);
+print(a + b);
+print(a * b);
+print(a / b);
+print(real(a));
+print(imag(a));
+print(complexAbs(a));

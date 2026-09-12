@@ -1,0 +1,2 @@
+print(ASM_config());
+print(ASM_snippet("mov rax, 42"));

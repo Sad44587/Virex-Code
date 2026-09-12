@@ -1,0 +1,8 @@
+let a = vector(1, 2, 3);
+let b = vector(4, 5, 6);
+print(a);
+print(dot(a, b));
+print(magnitude(a));
+print(normalize(a));
+print(distance(a, b));
+print(cross(a, b));

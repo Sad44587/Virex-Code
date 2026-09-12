@@ -1,0 +1,12 @@
+let a = matrix(2, 2, 0);
+mset(a, 0, 0, 1);
+mset(a, 0, 1, 2);
+mset(a, 1, 0, 3);
+mset(a, 1, 1, 4);
+print(a);
+print(mget(a, 1, 0));
+print(transpose(a));
+
+let b = matrix(2, 2, 1);
+print(matrixAdd(a, b));
+print(matrixMul(a, b));

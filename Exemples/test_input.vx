@@ -1,0 +1,10 @@
+print("=== Input Testing ===");
+name = input("What is your name? ");
+print("Hello, ");
+print(name);
+
+print("Enter your age: ");
+age = inputNum("Age: ");
+print("You are ");
+print(age);
+print(" years old");

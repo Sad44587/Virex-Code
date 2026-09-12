@@ -1,0 +1,9 @@
+let screen = window("Virex Direct3D 11", 640, 480);
+gpuInit(screen);
+gpuClear(screen, 0.06, 0.08, 0.12);
+gpuRect(screen, -0.8, 0.8, -0.3, 0.3, 0.8, 0.3, 0.2);
+gpuTriangle(screen, 0, 0.1, 0.55, 0.2, 0.8, 1.0);
+gpuPresent(screen);
+windowWait(1000);
+gpuShutdown(screen);
+windowClose(screen);

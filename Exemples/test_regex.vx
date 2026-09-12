@@ -1,0 +1,2 @@
+print(regexMatch("Virex 123", "[0-9]+"));
+print(regexReplace("Virex 123", "[0-9]+", "language"));

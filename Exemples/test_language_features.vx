@@ -1,0 +1,32 @@
+let total = 0;
+let index = 0;
+while (index < 6) {
+  index = index + 1;
+  if (index == 2) {
+    continue;
+  }
+  if (index == 5) {
+    break;
+  }
+  total = total + index;
+}
+print(total);
+
+let empty = null;
+print(type(empty));
+print(empty == null);
+
+let data = dict();
+data = dictSet(data, "name", "Virex");
+data = dictSet(data, "version", 1);
+print(dictGet(data, "name"));
+print(dictGet(data, "missing"));
+print(dictKeys(data));
+
+try {
+  readFile("missing-file.txt");
+} catch (error) {
+  print("caught: " + error);
+}
+
+shell("echo VirexShell");

@@ -1,0 +1,9 @@
+let screen = window("GPU texture test", 640, 480);
+gpuInit(screen);
+let texture = gpuLoadTexture(screen, "tests/texture_test.bmp");
+gpuClear(screen, 0.05, 0.05, 0.08);
+gpuDrawTexture(screen, texture, -0.6, 0.6, 0.6, -0.6);
+gpuPresent(screen);
+windowWait(1000);
+gpuShutdown(screen);
+windowClose(screen);

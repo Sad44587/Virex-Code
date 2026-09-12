@@ -1,0 +1,48 @@
+print("=== Type Testing ===");
+print(type(42));
+print(type("hello"));
+print(type(true));
+lst = list();
+print(type(lst));
+
+print("=== Math Functions ===");
+print(floor(3.7));
+print(ceil(3.2));
+print(round(3.5));
+
+print(sqrt(16));
+print(pow(2, 8));
+print(abs(-5));
+
+print("=== Min/Max ===");
+print(min(10, 5, 8, 2));
+print(max(10, 5, 8, 2));
+
+print("=== Range ===");
+r = range(5);
+print(r);
+
+r2 = range(1, 5);
+print(r2);
+
+r3 = range(0, 10, 2);
+print(r3);
+
+print("=== String to Number ===");
+n = number("123");
+print(n + 77);
+
+print("=== File Operations ===");
+writeFile("test.txt", "Hello Virex!\nLine 2");
+content = readFile("test.txt");
+print(content);
+
+appendFile("test.txt", "\nLine 3");
+updated = readFile("test.txt");
+print("=== After Append ===");
+print(updated);
+
+print("=== File Existence ===");
+print(exists("test.txt"));
+deleteFile("test.txt");
+print(exists("test.txt"));

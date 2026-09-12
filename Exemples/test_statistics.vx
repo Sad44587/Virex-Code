@@ -1,0 +1,6 @@
+let values = range(1, 6);
+print(sum(values));
+print(average(values));
+print(median(values));
+print(variance(values));
+print(stddev(values));

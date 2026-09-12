@@ -1,0 +1,7 @@
+let screen = window("Input test", 320, 240);
+print(keyDown("SPACE"));
+print(mouseX(screen));
+print(mouseY(screen));
+print(mouseDown(0));
+windowWait(100);
+windowClose(screen);

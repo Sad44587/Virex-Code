@@ -1,0 +1,14 @@
+let path = "system_test.txt";
+writeFile(path, "Virex");
+print(exists(path));
+print(fileSize(path));
+copyFile(path, "system_copy.txt");
+print(exists("system_copy.txt"));
+moveFile("system_copy.txt", "system_moved.txt");
+print(exists("system_moved.txt"));
+print(isDirectory("."));
+print(platform());
+print(currentDirectory());
+print(time() > 0);
+deleteFile(path);
+deleteFile("system_moved.txt");
