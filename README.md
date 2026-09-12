@@ -1,8 +1,8 @@
 # Virex
 
-Virex est un mini-langage de programmation simple, conçu pour exécuter des fichiers `.vx` avec un interpréteur écrit en C++.
+Virex is a simple programming language designed to execute `.vx` `.vxm` files using an interpreter written in C++.
 
-## Syntaxe de base
+## Basic Syntax
 
 ### Variables
 ```virex
@@ -11,28 +11,44 @@ let y = 2 * (x + 3);
 x = x + 5;
 ```
 
-### Affichage
+### Function
+There are two types of functions: public and private.
+
 ```virex
-print("Bonjour Virex");
+fn mul(a, b) {
+  return a * b;
+}
+```
+
+Public functions are used only within .vxm files and can be accessed by any module via `import "MODULE_NAME"`.
+```virex
+public fn mul(a, b) {
+  return a * b;
+}
+```
+
+### Output
+```virex
+print("Hello Virex");
 print(x);
 ```
 
-### Fonctions mathématiques
+### Math Functions
 ```virex
 print(sin(1.57));
 print(sqrt(16));
 print(pow(2, 8));
 ```
 
-Fonctions supportées : `sin`, `cos`, `tan`, `sqrt`, `abs`, `pow`, `log`, `exp`, `floor`, `ceil`, `round`.
+Supported functions: `sin`, `cos`, `tan`, `sqrt`, `abs`, `pow`, `log`, `exp`, `floor`, `ceil`, `round`.
 
-Fonctions mathématiques supplémentaires : `sum`, `average`, `median`, `variance`, `stddev`, `matrix`, `mget`, `mset`, `transpose`, `matrixAdd`, `matrixMul`, `vector`, `dot`, `cross`, `magnitude`, `normalize` et `distance`.
+Additional math functions: `sum`, `average`, `median`, `variance`, `stddev`, `matrix`, `mget`, `mset`, `transpose`, `matrixAdd`, `matrixMul`, `vector`, `dot`, `cross`, `magnitude`, `normalize`, and `distance`.
 
-Fonctions strings supplémentaires : `startsWith`, `endsWith`, `indexOf`, `replace`, `repeat`, `reverse`, `charAt`, `isNumber`, `regexMatch` et `regexReplace`.
+Additional string functions: `startsWith`, `endsWith`, `indexOf`, `replace`, `repeat`, `reverse`, `charAt`, `isNumber`, `regexMatch`, and `regexReplace`.
 
-Fonctions système et fichiers : `copyFile`, `moveFile`, `createDirectory`, `isDirectory`, `fileSize`, `time`, `sleep`, `currentDirectory` et `platform`.
+System and file functions: `copyFile`, `moveFile`, `createDirectory`, `isDirectory`, `fileSize`, `time`, `sleep`, `currentDirectory`, and `platform`.
 
-Le langage supporte aussi `break`, `continue`, `null`, `try/catch`, les dictionnaires natifs et l’exécution de commandes système :
+The language also supports `break`, `continue`, `null`, `try/catch`, native dictionaries, and system command execution:
 
 ```virex
 let data = dict();
@@ -40,17 +56,19 @@ data = dictSet(data, "name", "Virex");
 print(dictGet(data, "name"));
 
 try {
-	readFile("missing.txt");
+    readFile("missing.txt");
 } catch (error) {
-	print(error);
+    print(error);
 }
 
-shell("echo Bonjour");
+shell("echo Hello");
 ```
 
-Fonctions dictionnaire : `dict`, `dictGet`, `dictSet` et `dictKeys`. `shell` renvoie le code de sortie de la commande système.
+Dictionary functions: `dict`, `dictGet`, `dictSet`, and `dictKeys`.
 
-## JSON et nombres complexes
+`shell` returns the exit code of the executed system command.
+
+## JSON and Complex Numbers
 
 ```virex
 let data = jsonParse("{\"name\":\"Virex\",\"version\":1}");
@@ -65,29 +83,36 @@ print(imag(z));
 print(complexAbs(z));
 ```
 
-Fonctions JSON : `jsonParse`, `jsonStringify`, `objectGet`, `objectSet` et `objectKeys`.
-Fonctions complexes : `complex`, `real`, `imag` et `complexAbs`. Les opérateurs `+`, `-`, `*` et `/` fonctionnent avec les complexes.
+JSON functions: `jsonParse`, `jsonStringify`, `objectGet`, `objectSet`, and `objectKeys`.
 
-## Fenêtres et dessin Windows
+Complex number functions: `complex`, `real`, `imag`, and `complexAbs`.
 
-Virex peut créer une fenêtre native Windows et dessiner avec GDI :
+The operators `+`, `-`, `*`, and `/` also work with complex numbers.
+
+## Windows and Drawing
+
+Virex can create native Windows windows and draw using GDI:
 
 ```virex
 let screen = window("Virex", 640, 400);
 windowClear(screen, 25, 30, 40);
 drawRect(screen, 40, 40, 220, 120, 30, 150, 240);
-drawText(screen, 60, 190, "Bonjour depuis Virex", 255, 255, 255);
+drawText(screen, 60, 190, "Hello from Virex", 255, 255, 255);
 windowWait(5000);
 windowClose(screen);
 ```
 
-Fonctions disponibles : `window`, `windowOpen`, `windowWidth`, `windowHeight`, `windowClose`, `windowClear`, `drawRect`, `drawLine`, `drawText`, `windowRefresh`, `windowPump` et `windowWait`. Les commandes de dessin sont conservées et rejouées automatiquement lors des événements `WM_PAINT`.
+Available functions: `window`, `windowOpen`, `windowWidth`, `windowHeight`, `windowClose`, `windowClear`, `drawRect`, `drawLine`, `drawText`, `windowRefresh`, `windowPump`, and `windowWait`.
 
-Cette première API cible Windows et utilise Win32/GDI. Les valeurs de couleur sont des composantes RGB entre 0 et 255.
+Drawing commands are automatically stored and replayed during `WM_PAINT` events.
 
-## Rendu GPU Direct3D 11
+This first graphics API targets Windows and uses Win32/GDI.
 
-Virex possède aussi un backend Direct3D 11 pour le rendu matériel Windows :
+Color values are RGB components ranging from `0` to `255`.
+
+## Direct3D 11 GPU Rendering
+
+Virex also includes a Direct3D 11 backend for hardware-accelerated rendering on Windows:
 
 ```virex
 let screen = window("GPU Virex", 640, 480);
@@ -100,9 +125,15 @@ gpuShutdown(screen);
 windowClose(screen);
 ```
 
-Le backend utilise Direct3D 11, un device matériel, un swap chain, un vertex shader et un pixel shader HLSL. Les coordonnées GPU sont normalisées entre `-1` et `1`, et les couleurs entre `0` et `1`. `gpuLine` permet de dessiner une arête GPU avec deux points et une couleur RGB, et `gpuRect` dessine un rectangle rempli. `CompleteTest/main.vx` utilise maintenant `gpuLine` pour rendre le cube directement par Direct3D 11.
+The backend uses Direct3D 11, a hardware device, a swap chain, a vertex shader, and an HLSL pixel shader.
 
-Les textures BMP 24/32 bits peuvent être chargées et dessinées sur le GPU :
+GPU coordinates are normalized between `-1` and `1`, while colors use values between `0` and `1`.
+
+`gpuLine` draws a GPU line using two points and an RGB color, while `gpuRect` draws a filled rectangle.
+
+`CompleteTest/main.vx` now uses `gpuLine` to render the cube directly with Direct3D 11.
+
+24-bit and 32-bit BMP textures can also be loaded and rendered on the GPU:
 
 ```virex
 let screen = window("Texture", 640, 480);
@@ -113,11 +144,18 @@ gpuDrawTexture(screen, image, -0.8, 0.8, 0.8, -0.8);
 gpuPresent(screen);
 ```
 
-Le clavier et la souris sont accessibles avec `keyDown`, `mouseX`, `mouseY` et `mouseDown`.
+Keyboard and mouse input are available through `keyDown`, `mouseX`, `mouseY`, and `mouseDown`.
 
-## Assembleur
+## Assembly
 
-La configuration actuelle cible le maximum de compatibilité disponible sur Windows : `x86_64`, syntaxe Intel, ABI Windows x64, assembleur intégré Clang, optimisation `O2` et résultat dans `RAX`.
+The current configuration targets maximum compatibility on Windows:
+
+- `x86_64`
+- Intel syntax
+- Windows x64 ABI
+- Clang integrated assembler
+- `O2` optimization
+- Return value in `RAX`
 
 ```virex
 print(ASM_config());
@@ -125,74 +163,19 @@ let result = ASM_snippet("mov rax, 42");
 print(result);
 ```
 
-`ASM_snippet` accepte un fragment sans argument et exécute une fonction qui retourne un entier 64 bits dans `RAX`. Virex compile temporairement le fragment en DLL avec Clang, le charge, l’exécute, puis supprime les fichiers temporaires. La fonction exécute du code natif arbitraire dans le processus : elle doit donc être utilisée uniquement avec du code de confiance. La variable d’environnement `VIREX_CLANG` permet de choisir un autre exécutable Clang.
+`ASM_snippet` accepts an argument-free assembly fragment and executes it as a function returning a 64-bit integer in `RAX`.
 
-## VS Code Setup
+Virex temporarily compiles the fragment into a DLL using Clang, loads it, executes it, and then deletes the temporary files.
 
-Pour une meilleure expérience de développement, installez l'extension VS Code :
+Since this executes arbitrary native code inside the interpreter process, it should only be used with trusted code.
 
-```bash
-cd vscode-extension
-install.bat     # Windows
-# ou
-chmod +x install.sh && ./install.sh  # macOS/Linux
-```
+The `VIREX_CLANG` environment variable can be used to specify a different Clang executable.
 
-L'extension ajoute :
-- **Coloration syntaxique** pour `.vx` et `.vxm`
-- **Icônes de fichier** personnalisées
-- **Autocomplétion** pour les mots-clés et fonctions
+### Python-like Console Mode
 
-Voir [INSTALL.md](./INSTALL.md) pour plus de détails.
-
-## Exécution
-
-### Compilation
-```bash
-clang++ -std=c++17 -O2 main.cpp -o virex
-```
-
-### Mode console Python-like
-- `virex file.vx` : exécute un script depuis n’importe quel dossier
-- `virex -i` : ouvre le REPL interactif
-- `virex --help` : affiche l’aide
-- `virex --version` : affiche la version
-- `virex --build-info` : affiche les fonctionnalités compilées
-- `virex --no-graphics file.vx` : exécute un script sans créer de fenêtre
-
-### PATH Windows
-Après le build, le script `build.bat` installe un lanceur `virex.cmd` dans le dossier système `AppData\Local\Microsoft\WindowsApps`, qui est déjà dans le `PATH` Windows. Ensuite, tu peux utiliser Virex depuis n’importe quel dossier :
-
-```bash
-virex --help
-virex sample.vx
-```
-
-Exemples :
-```bash
-virex sample.vx
-virex -i
-virex --help
-```
-
-## Packaging Windows
-Le script `build.bat` produit une version packagée dans le dossier `dist/` avec :
-- `virex.exe`
-- `sample.vx`
-- `README.md`
-
-Exemple :
-```bat
-build.bat
-```
-
-## Exemple
-Voir le fichier `sample.vx`.
-
-## Test complet
-
-Le dossier `CompleteTest/` contient une démonstration entièrement écrite en Virex : un cube filaire tourne autour des axes X, Y et Z dans une fenêtre avec fond gris foncé. Lance-la avec :
-
-```bash
-virex CompleteTest/main.vx
-```
+- `virex file.vx` — Executes a script from any directory
+- `virex -i` — Opens the interactive REPL
+- `virex --help` — Displays the help page
+- `virex --version` — Displays the current version
+- `virex --build-info` — Displays compiled features
+- `virex --no-graphics file.vx` — Runs a script without creating a window
