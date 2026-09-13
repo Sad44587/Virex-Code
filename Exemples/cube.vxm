@@ -1,0 +1,44 @@
+public fn rotateX(point, angle) {
+  let x = get(point, 0);
+  let y = get(point, 1);
+  let z = get(point, 2);
+  return vector(x, y * cos(angle) - z * sin(angle), y * sin(angle) + z * cos(angle));
+}
+
+public fn rotateY(point, angle) {
+  let x = get(point, 0);
+  let y = get(point, 1);
+  let z = get(point, 2);
+  return vector(x * cos(angle) + z * sin(angle), y, -x * sin(angle) + z * cos(angle));
+}
+
+public fn rotateZ(point, angle) {
+  let x = get(point, 0);
+  let y = get(point, 1);
+  let z = get(point, 2);
+  return vector(x * cos(angle) - y * sin(angle), x * sin(angle) + y * cos(angle), z);
+}
+
+public fn transform(point, angleX, angleY, angleZ) {
+  let rotated = rotateX(point, angleX);
+  rotated = rotateY(rotated, angleY);
+  return rotateZ(rotated, angleZ);
+}
+
+public fn project(point, width, height, scale) {
+  let x = get(point, 0);
+  let y = get(point, 1);
+  let z = get(point, 2);
+  let depth = 5 + z;
+  let factor = scale / depth;
+  return vector(width / 2 + x * factor, height / 2 - y * factor);
+}
+
+public fn projectGpu(point, width, height, scale) {
+  let x = get(point, 0);
+  let y = get(point, 1);
+  let z = get(point, 2);
+  let depth = 5 + z;
+  let factor = scale / depth;
+  return vector(x * factor / (width / 2), y * factor / (height / 2));
+}

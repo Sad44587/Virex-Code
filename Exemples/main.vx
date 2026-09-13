@@ -1,0 +1,75 @@
+# This file need the "cube.vxm" file to run properly.
+
+import "cube";
+
+let screen = window("Virex - Cube qui tourne", 800, 600);
+gpuInit(screen);
+let angleX = 0;
+let angleY = 0;
+let angleZ = 0;
+let size = 1.4;
+let lastFpsTime = timeMs();
+let frameCount = 0;
+let fps = 0;
+
+let vertices = list();
+push(vertices, vector(-size, -size, -size));
+push(vertices, vector(size, -size, -size));
+push(vertices, vector(size, size, -size));
+push(vertices, vector(-size, size, -size));
+push(vertices, vector(-size, -size, size));
+push(vertices, vector(size, -size, size));
+push(vertices, vector(size, size, size));
+push(vertices, vector(-size, size, size));
+
+while (windowOpen(screen)) {
+  let screenWidth = windowWidth(screen);
+  let screenHeight = windowHeight(screen);
+  gpuClear(screen, 0.15, 0.16, 0.19);
+
+  let projected = list();
+  let index = 0;
+  while (index < len(vertices)) {
+    let point = get(vertices, index);
+    let rotated = transform(point, angleX, angleY, angleZ);
+    push(projected, projectGpu(rotated, screenWidth, screenHeight, min(screenWidth, screenHeight) * 0.32));
+    index = index + 1;
+  }
+
+  gpuLine(screen, get(get(projected, 0), 0), get(get(projected, 0), 1), get(get(projected, 1), 0), get(get(projected, 1), 1), 0.3, 0.75, 1.0);
+  gpuLine(screen, get(get(projected, 1), 0), get(get(projected, 1), 1), get(get(projected, 2), 0), get(get(projected, 2), 1), 0.3, 0.75, 1.0);
+  gpuLine(screen, get(get(projected, 2), 0), get(get(projected, 2), 1), get(get(projected, 3), 0), get(get(projected, 3), 1), 0.3, 0.75, 1.0);
+  gpuLine(screen, get(get(projected, 3), 0), get(get(projected, 3), 1), get(get(projected, 0), 0), get(get(projected, 0), 1), 0.3, 0.75, 1.0);
+
+  gpuLine(screen, get(get(projected, 4), 0), get(get(projected, 4), 1), get(get(projected, 5), 0), get(get(projected, 5), 1), 1.0, 0.6, 0.2);
+  gpuLine(screen, get(get(projected, 5), 0), get(get(projected, 5), 1), get(get(projected, 6), 0), get(get(projected, 6), 1), 1.0, 0.6, 0.2);
+  gpuLine(screen, get(get(projected, 6), 0), get(get(projected, 6), 1), get(get(projected, 7), 0), get(get(projected, 7), 1), 1.0, 0.6, 0.2);
+  gpuLine(screen, get(get(projected, 7), 0), get(get(projected, 7), 1), get(get(projected, 4), 0), get(get(projected, 4), 1), 1.0, 0.6, 0.2);
+
+  gpuLine(screen, get(get(projected, 0), 0), get(get(projected, 0), 1), get(get(projected, 4), 0), get(get(projected, 4), 1), 0.45, 1.0, 0.6);
+  gpuLine(screen, get(get(projected, 1), 0), get(get(projected, 1), 1), get(get(projected, 5), 0), get(get(projected, 5), 1), 0.45, 1.0, 0.6);
+  gpuLine(screen, get(get(projected, 2), 0), get(get(projected, 2), 1), get(get(projected, 6), 0), get(get(projected, 6), 1), 0.45, 1.0, 0.6);
+  gpuLine(screen, get(get(projected, 3), 0), get(get(projected, 3), 1), get(get(projected, 7), 0), get(get(projected, 7), 1), 0.45, 1.0, 0.6);
+
+  frameCount = frameCount + 1;
+  let now = timeMs();
+  if (now - lastFpsTime >= 500) {
+    fps = frameCount * 1000 / (now - lastFpsTime);
+    frameCount = 0;
+    lastFpsTime = now;
+  }
+
+  gpuPresent(screen);
+  drawText(screen, 24, screenHeight - 58, "Cube qui tourne - GPU Direct3D 11", 245, 245, 245);
+  drawText(screen, 24, screenHeight - 34, "Rotation X / Y / Z - Virex", 160, 175, 190);
+  drawText(screen, screenWidth - 130, 28, "FPS: " + str(round(fps)), 180, 230, 190);
+
+  angleX = angleX + 0.025;
+  angleY = angleY + 0.035;
+  angleZ = angleZ + 0.02;
+
+  windowWait(16);
+}
+
+gpuShutdown(screen);
+windowClose(screen);
