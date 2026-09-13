@@ -577,7 +577,7 @@ print(result);
 
 Internally, Virex compiles the fragment into a temporary DLL using Clang, loads it, executes it, and deletes the temporary files afterward. The Clang executable used can be overridden via the `VIREX_CLANG` environment variable.
 
-> ⚠️ **This executes arbitrary native machine code inside the interpreter process.** Only run `ASM_snippet` with trusted code — see [Security Considerations](#security-considerations).
+> ⚠ **This executes arbitrary native machine code inside the interpreter process.** Only run `ASM_snippet` with trusted code — see [Security Considerations](#security-considerations).
 
 ---
 
