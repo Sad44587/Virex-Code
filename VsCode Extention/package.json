@@ -1,0 +1,68 @@
+{
+  "name": "virex-syntax",
+  "displayName": "Virex Syntax Highlighting",
+  "description": "Syntax highlighting and file icons for Virex scripts (.vx, .vxm)",
+  "version": "1.0.0",
+  "publisher": "virex",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "virex",
+        "aliases": [
+          "Virex",
+          "virex"
+        ],
+        "extensions": [
+          ".vx"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "virex-module",
+        "aliases": [
+          "Virex Module",
+          "virex-module"
+        ],
+        "extensions": [
+          ".vxm"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "virex",
+        "scopeName": "source.virex",
+        "path": "./syntaxes/virex.tmLanguage.json"
+      },
+      {
+        "language": "virex-module",
+        "scopeName": "source.virex",
+        "path": "./syntaxes/virex.tmLanguage.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "virex-icons",
+        "label": "Virex Icons",
+        "path": "./icons/file-icons.json"
+      }
+    ]
+  },
+  "keywords": [
+    "virex",
+    "scripting",
+    "language"
+  ],
+  "icon": "icons/virex-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/virex/virex"
+  }
+}

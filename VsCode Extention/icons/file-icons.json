@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "iconDefinitions": {
+    "virex-file": {
+      "fontCharacter": "\\E624",
+      "fontColor": "#4EC9B0"
+    },
+    "virex-module": {
+      "fontCharacter": "\\E625",
+      "fontColor": "#CE9178"
+    }
+  },
+  "file": "virex-file",
+  "fileExtensions": {
+    "vx": "virex-file",
+    "vxm": "virex-module"
+  }
+}
